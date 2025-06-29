@@ -225,6 +225,33 @@
             box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
         }
 
+        /* Sync Status styles */
+        #syncStatus {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9em;
+            text-align: center;
+            color: #4a5568; /* Gray text */
+            background-color: #e2e8f0; /* Light gray background */
+            border: 1px solid #cbd5e1; /* Gray border */
+            display: none; /* Hidden by default */
+        }
+        #syncStatus.show {
+            display: block; /* Show when 'show' class is added */
+        }
+        #syncStatus.success {
+            background-color: #d1fae5; /* Green light */
+            color: #065f46; /* Green dark */
+            border-color: #34d399; /* Green border */
+        }
+        #syncStatus.error {
+            background-color: #fee2e2; /* Red light */
+            color: #991b1b; /* Red dark */
+            border-color: #ef4444; /* Red border */
+        }
+
 
         /* Responsive adjustments */
         @media (min-width: 600px) { /* Equivalent to Tailwind's sm breakpoint */
@@ -279,7 +306,6 @@
             </select>
         </div>
 
-
         <div id="quoteDisplay">
             <!-- Quotes will be displayed here dynamically by JavaScript -->
         </div>
@@ -303,6 +329,9 @@
             <label for="importFile" class="button">Import Quotes (JSON)</label>
             <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" style="display: none;" />
         </div>
+
+        <!-- New Section for Sync Status Notification -->
+        <div id="syncStatus" class=""></div>
     </div>
 
     <script src="script.js"></script>
