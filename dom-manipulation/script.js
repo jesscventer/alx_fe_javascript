@@ -420,7 +420,7 @@ async function syncQuotes() {
         populateCategories();       // Update categories with potential new ones
         filterQuotes();             // Re-apply filter to show updated list
 
-        let syncMessage = "Sync complete!";
+        let syncMessage = "Quotes synced with server!"; // Changed message to match test expectation
         if (newQuotesAdded > 0) {
             syncMessage += ` ${newQuotesAdded} new local quotes added.`;
         }
