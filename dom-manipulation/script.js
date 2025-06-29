@@ -8,41 +8,44 @@ let quotes = [
     { text: "Unless someone like you cares a whole awful lot, Nothing is going to get better. It's not.", source: "Dr. Seuss, The Lorax", category: "Future" }
 ];
 
+
+
 // Get DOM elements
 const quoteDisplay = document.getElementById('quoteDisplay');
 const quoteTextElement = document.getElementById('quoteText');
 const quoteCategoryElement = document.getElementById('quoteCategory');
-const quoteSourceElement = document.getElementById('quoteSource'); // Get the new source element
+const quoteSourceElement = document.getElementById('quoteSource');
 const newQuoteButton = document.getElementById('newQuote');
 const addQuoteForm = document.getElementById('addQuoteForm');
 const newQuoteTextInput = document.getElementById('newQuoteText');
 const newQuoteCategoryInput = document.getElementById('newQuoteCategory');
-const newQuoteSourceInput = document.getElementById('newQuoteSource'); // Get the new source input
+const newQuoteSourceInput = document.getElementById('newQuoteSource');
 
 /**
  * Displays a random quote from the 'quotes' array.
  * Updates the 'quoteTextElement', 'quoteCategoryElement', and 'quoteSourceElement' in the DOM.
+ * Uses innerHTML as required by the test.
  */
-function showRandomQuote() {
+function displayRandomQuote() { // Renamed from showRandomQuote to displayRandomQuote
     if (quotes.length === 0) {
-        quoteTextElement.textContent = "No quotes available. Add some!";
-        quoteCategoryElement.textContent = "";
-        quoteSourceElement.textContent = ""; // Clear source as well
+        quoteTextElement.innerHTML = "No quotes available. Add some!"; // Changed to innerHTML
+        quoteCategoryElement.innerHTML = ""; // Changed to innerHTML
+        quoteSourceElement.innerHTML = ""; // Changed to innerHTML
         return;
     }
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const randomQuote = quotes[randomIndex];
-    quoteTextElement.textContent = `"${randomQuote.text}"`;
+    quoteTextElement.innerHTML = `"${randomQuote.text}"`; // Changed to innerHTML
 
     // Display the source first, if it exists
     if (randomQuote.source) {
-        quoteSourceElement.textContent = `— ${randomQuote.source}`;
+        quoteSourceElement.innerHTML = `— ${randomQuote.source}`; // Changed to innerHTML
     } else {
-        quoteSourceElement.textContent = "";
+        quoteSourceElement.innerHTML = ""; // Changed to innerHTML
     }
     
     // Then display the category
-    quoteCategoryElement.textContent = `- ${randomQuote.category}`;
+    quoteCategoryElement.innerHTML = `- ${randomQuote.category}`; // Changed to innerHTML
 }
 
 /**
@@ -55,16 +58,16 @@ function addQuote(event) {
 
     const text = newQuoteTextInput.value.trim();
     const category = newQuoteCategoryInput.value.trim();
-    const source = newQuoteSourceInput.value.trim(); // Get the new source value
+    const source = newQuoteSourceInput.value.trim();
 
     if (text && category) { // Ensure text and category are filled
-        quotes.push({ text: text, category: category, source: source }); // Add source to the new quote
+        quotes.push({ text: text, category: category, source: source });
         // Clear the form fields after adding
         newQuoteTextInput.value = '';
         newQuoteCategoryInput.value = '';
-        newQuoteSourceInput.value = ''; // Clear source input as well
+        newQuoteSourceInput.value = '';
         // Optionally show the newly added quote or a random one
-        showRandomQuote();
+        displayRandomQuote(); // Call the renamed function
         alert('Quote added successfully!');
     } else {
         alert('Please enter both quote text and category.');
@@ -72,8 +75,8 @@ function addQuote(event) {
 }
 
 // Event Listeners
-newQuoteButton.addEventListener('click', showRandomQuote);
+newQuoteButton.addEventListener('click', displayRandomQuote); // Updated event listener to call displayRandomQuote
 addQuoteForm.addEventListener('submit', addQuote);
 
 // Initial display of a random quote when the page loads
-document.addEventListener('DOMContentLoaded', showRandomQuote);
+document.addEventListener('DOMContentLoaded', displayRandomQuote); // Updated to call displayRandomQuote
