@@ -56,20 +56,34 @@
         }
 
         /* Styles for dynamically created elements */
-        .quote-text { /* New class for quote text */
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            font-size: 1.25em; /* Maintain font size */
-            color: #2196f3; /* Maintain color */
+        .quote-item { /* New class for individual quote divs when filtering */
+            background-color: #f8fafc; /* Very light background for individual quotes */
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            text-align: left; /* Align text within quote item */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .quote-category, .quote-source { /* New classes for category and source */
-            font-size: 0.9em;
+        .quote-text { /* Class for quote text within dynamically created quote-item */
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 1.1em; /* Slightly smaller for list view */
+            color: #333; /* Darker for readability in list */
+            font-style: normal; /* Remove italic for list */
+        }
+
+        .quote-category, .quote-source { /* Classes for category and source */
+            font-size: 0.85em;
             color: #607d8b; /* Greyish blue */
             margin-top: 0.25rem; /* Small margin for separation */
         }
+        .quote-source {
+            font-style: italic; /* Keep source italic */
+        }
         .quote-category {
-            margin-bottom: 0.5rem; /* Add margin below category */
+            margin-bottom: 0; /* No bottom margin if source follows */
         }
 
 
@@ -177,6 +191,41 @@
             cursor: pointer;
         }
 
+        /* Category Filter Styles */
+        .filter-container {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            background-color: #f0fdf4; /* Light green background */
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: center; /* Center items horizontally */
+        }
+
+        .filter-container label {
+            font-weight: 600;
+            color: #166534; /* Dark green */
+            margin-bottom: 0.5rem;
+        }
+
+        #categoryFilter {
+            padding: 0.6rem 1rem;
+            border: 1px solid #94d3a2; /* Greenish border */
+            border-radius: 8px;
+            background-color: #ffffff;
+            width: 100%; /* Full width on small screens */
+            max-width: 300px; /* Max width for larger screens */
+            cursor: pointer;
+        }
+        #categoryFilter:focus {
+            outline: none;
+            border-color: #34d399; /* Brighter green on focus */
+            box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.2);
+        }
+
+
         /* Responsive adjustments */
         @media (min-width: 600px) { /* Equivalent to Tailwind's sm breakpoint */
             .add-quote-form-container form {
@@ -206,12 +255,30 @@
                 max-width: 48%; /* Max width for two columns */
                 margin: 0.5rem 0.5rem; /* Add margin between items */
             }
+
+            .filter-container {
+                flex-direction: row; /* Label and select side-by-side */
+                justify-content: center;
+            }
+            #categoryFilter {
+                width: auto; /* Revert to auto width for flex item */
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Dynamic Quote Generator</h1>
+
+        <!-- New Section for Category Filter -->
+        <div class="filter-container">
+            <label for="categoryFilter">Filter by Category:</label>
+            <select id="categoryFilter" onchange="filterQuotes()">
+                <option value="all">All Categories</option>
+                <!-- Dynamically populated categories -->
+            </select>
+        </div>
+
 
         <div id="quoteDisplay">
             <!-- Quotes will be displayed here dynamically by JavaScript -->
@@ -229,13 +296,12 @@
             </form>
         </div>
 
-        <!-- New Section for Data Management -->
+        <!-- Section for Data Management -->
         <div class="data-management-container">
             <h2>Data Management</h2>
             <button id="exportQuotes" onclick="exportQuotesToJson()">Export Quotes</button>
-            <label for="importFile" class="button">Import Quotes (JSON)</label> <!-- Styled as a button -->
+            <label for="importFile" class="button">Import Quotes (JSON)</label>
             <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" style="display: none;" />
-            <!-- The actual file input is hidden, and the label acts as a button -->
         </div>
     </div>
 
