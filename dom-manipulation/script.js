@@ -1,14 +1,12 @@
 // Array to store quote objects
 let quotes = [
-    { text: "Be yourself; everyone else is already taken", source: "Oscar Wilde", category: "Inspiration",},
-    { text: "I've learned that people will forget what you said, people will forget what you did, but people will never forget how you made them feel", source: "Maya Angelou", category: "Value" },
-    { text: "The future belongs to those who believe in the beauty of their dreams.", source: "Eleanor Roosevelt", category: "Dreams" },
-    { text: "Strive not to be a success, but rather to be of value.", source: "Albert Einstein", category: "Value" },
-    { text: "Life is what happens when you're busy making other plans.", source: "John Lennon", category: "Life" },
-    { text: "Unless someone like you cares a whole awful lot, Nothing is going to get better. It's not.", source: "Dr. Seuss, The Lorax", category: "Future" }
+    { text: "The only way to do great work is to love what you do.", category: "Inspiration", source: "Steve Jobs" },
+    { text: "Innovation distinguishes between a leader and a follower.", category: "Innovation", source: "Steve Jobs" },
+    { text: "The future belongs to those who believe in the beauty of their dreams.", category: "Dreams", source: "Eleanor Roosevelt" },
+    { text: "Strive not to be a success, but rather to be of value.", category: "Value", source: "Albert Einstein" },
+    { text: "Life is what happens when you're busy making other plans.", category: "Life", source: "John Lennon" },
+    { text: "The best way to predict the future is to create it.", category: "Future", source: "Abraham Lincoln" }
 ];
-
-
 
 // Get DOM elements
 const quoteDisplay = document.getElementById('quoteDisplay');
@@ -26,26 +24,26 @@ const newQuoteSourceInput = document.getElementById('newQuoteSource');
  * Updates the 'quoteTextElement', 'quoteCategoryElement', and 'quoteSourceElement' in the DOM.
  * Uses innerHTML as required by the test.
  */
-function displayRandomQuote() { // Renamed from showRandomQuote to displayRandomQuote
+function displayRandomQuote() {
     if (quotes.length === 0) {
-        quoteTextElement.innerHTML = "No quotes available. Add some!"; // Changed to innerHTML
-        quoteCategoryElement.innerHTML = ""; // Changed to innerHTML
-        quoteSourceElement.innerHTML = ""; // Changed to innerHTML
+        quoteTextElement.innerHTML = "No quotes available. Add some!";
+        quoteCategoryElement.innerHTML = "";
+        quoteSourceElement.innerHTML = "";
         return;
     }
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const randomQuote = quotes[randomIndex];
-    quoteTextElement.innerHTML = `"${randomQuote.text}"`; // Changed to innerHTML
+    quoteTextElement.innerHTML = `"${randomQuote.text}"`;
 
     // Display the source first, if it exists
     if (randomQuote.source) {
-        quoteSourceElement.innerHTML = `— ${randomQuote.source}`; // Changed to innerHTML
+        quoteSourceElement.innerHTML = `— ${randomQuote.source}`;
     } else {
-        quoteSourceElement.innerHTML = ""; // Changed to innerHTML
+        quoteSourceElement.innerHTML = "";
     }
     
     // Then display the category
-    quoteCategoryElement.innerHTML = `- ${randomQuote.category}`; // Changed to innerHTML
+    quoteCategoryElement.innerHTML = `- ${randomQuote.category}`;
 }
 
 /**
@@ -68,15 +66,27 @@ function addQuote(event) {
         newQuoteSourceInput.value = '';
         // Optionally show the newly added quote or a random one
         displayRandomQuote(); // Call the renamed function
-        alert('Quote added successfully!');
+        alert('Quote added successfully!'); // Using alert per previous context
     } else {
         alert('Please enter both quote text and category.');
     }
 }
 
-// Event Listeners
-newQuoteButton.addEventListener('click', displayRandomQuote); // Updated event listener to call displayRandomQuote
-addQuoteForm.addEventListener('submit', addQuote);
+/**
+ * Sets up the functionality for adding new quotes,
+ * as required by the 'createAddQuoteForm' function name.
+ * This includes attaching the event listener to the add quote form.
+ */
+function createAddQuoteForm() { // New function added
+    addQuoteForm.addEventListener('submit', addQuote);
+}
 
-// Initial display of a random quote when the page loads
-document.addEventListener('DOMContentLoaded', displayRandomQuote); // Updated to call displayRandomQuote
+
+// Event Listeners
+newQuoteButton.addEventListener('click', displayRandomQuote);
+
+// Initial setup and display when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    displayRandomQuote();
+    createAddQuoteForm(); // Call the new function to set up the form
+});
