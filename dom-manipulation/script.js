@@ -24,7 +24,7 @@ const newQuoteSourceInput = document.getElementById('newQuoteSource');
  * Updates the 'quoteTextElement', 'quoteCategoryElement', and 'quoteSourceElement' in the DOM.
  * Uses innerHTML as required by the test.
  */
-function displayRandomQuote() {
+function showRandomQuote() { // Renamed back to showRandomQuote
     if (quotes.length === 0) {
         quoteTextElement.innerHTML = "No quotes available. Add some!";
         quoteCategoryElement.innerHTML = "";
@@ -65,7 +65,7 @@ function addQuote(event) {
         newQuoteCategoryInput.value = '';
         newQuoteSourceInput.value = '';
         // Optionally show the newly added quote or a random one
-        displayRandomQuote(); // Call the renamed function
+        showRandomQuote(); // Call the renamed function
         alert('Quote added successfully!'); // Using alert per previous context
     } else {
         alert('Please enter both quote text and category.');
@@ -77,16 +77,16 @@ function addQuote(event) {
  * as required by the 'createAddQuoteForm' function name.
  * This includes attaching the event listener to the add quote form.
  */
-function createAddQuoteForm() { // New function added
+function createAddQuoteForm() { // This function name remains as per previous requirement
     addQuoteForm.addEventListener('submit', addQuote);
 }
 
 
 // Event Listeners
-newQuoteButton.addEventListener('click', displayRandomQuote);
+newQuoteButton.addEventListener('click', showRandomQuote); // Updated event listener to call showRandomQuote
 
 // Initial setup and display when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    displayRandomQuote();
+    showRandomQuote(); // Updated to call showRandomQuote
     createAddQuoteForm(); // Call the new function to set up the form
 });
