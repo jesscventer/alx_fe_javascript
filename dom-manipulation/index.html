@@ -55,17 +55,20 @@
             word-wrap: break-word; /* Ensure long words break */
         }
 
-        #quoteText {
+        /* Styles for dynamically created elements */
+        .quote-text { /* New class for quote text */
             margin-bottom: 0.5rem;
             font-weight: 600;
+            font-size: 1.25em; /* Maintain font size */
+            color: #2196f3; /* Maintain color */
         }
 
-        #quoteCategory, #quoteSource { /* Apply styles to both category and source */
+        .quote-category, .quote-source { /* New classes for category and source */
             font-size: 0.9em;
             color: #607d8b; /* Greyish blue */
             margin-top: 0.25rem; /* Small margin for separation */
         }
-        #quoteCategory {
+        .quote-category {
             margin-bottom: 0.5rem; /* Add margin below category */
         }
 
@@ -137,7 +140,7 @@
         }
 
         /* Responsive adjustments */
-        @media (min-width: 600px) { 
+        @media (min-width: 600px) { /* Equivalent to Tailwind's sm breakpoint */
             .add-quote-form-container form {
                 flex-direction: row; /* Inputs side-by-side on larger screens */
                 flex-wrap: nowrap; /* Prevent wrapping */
@@ -160,10 +163,8 @@
         <h1>Dynamic Quote Generator</h1>
 
         <div id="quoteDisplay">
-            <!-- Quotes will be displayed here dynamically -->
-            <p id="quoteText"></p>
-            <p id="quoteCategory"></p>
-            <p id="quoteSource"></p> <!-- New element for quote source -->
+            <!-- Quotes will be displayed here dynamically by JavaScript -->
+            <!-- The p tags for quoteText, quoteCategory, and quoteSource are now created in JS -->
         </div>
 
         <button id="newQuote">Show New Quote</button>
@@ -173,7 +174,7 @@
             <form id="addQuoteForm">
                 <input id="newQuoteText" type="text" placeholder="Enter a new quote" required />
                 <input id="newQuoteCategory" type="text" placeholder="Enter quote category" required />
-                <input id="newQuoteSource" type="text" placeholder="Enter quote source/author" /> <!-- New input field -->
+                <input id="newQuoteSource" type="text" placeholder="Enter quote source/author" />
                 <button type="submit">Add Quote</button>
             </form>
         </div>

@@ -10,9 +10,8 @@ let quotes = [
 
 // Get DOM elements
 const quoteDisplay = document.getElementById('quoteDisplay');
-const quoteTextElement = document.getElementById('quoteText');
-const quoteCategoryElement = document.getElementById('quoteCategory');
-const quoteSourceElement = document.getElementById('quoteSource');
+// Removed direct references to quoteTextElement, quoteCategoryElement, quoteSourceElement
+// as they will be created dynamically inside showRandomQuote
 const newQuoteButton = document.getElementById('newQuote');
 const addQuoteForm = document.getElementById('addQuoteForm');
 const newQuoteTextInput = document.getElementById('newQuoteText');
@@ -21,29 +20,43 @@ const newQuoteSourceInput = document.getElementById('newQuoteSource');
 
 /**
  * Displays a random quote from the 'quotes' array.
- * Updates the 'quoteTextElement', 'quoteCategoryElement', and 'quoteSourceElement' in the DOM.
- * Uses innerHTML as required by the test.
+ * Dynamically creates and appends elements for the quote text, source, and category.
+ * Uses innerHTML for content as required by the test.
  */
-function showRandomQuote() { // Renamed back to showRandomQuote
+function showRandomQuote() {
+    // Clear previous quote display content
+    quoteDisplay.innerHTML = '';
+
     if (quotes.length === 0) {
-        quoteTextElement.innerHTML = "No quotes available. Add some!";
-        quoteCategoryElement.innerHTML = "";
-        quoteSourceElement.innerHTML = "";
+        const noQuotesMessage = document.createElement('p'); // Use createElement
+        noQuotesMessage.innerHTML = "No quotes available. Add some!"; // Use innerHTML
+        noQuotesMessage.style.textAlign = 'center'; // Add some basic centering
+        quoteDisplay.appendChild(noQuotesMessage); // Use appendChild
         return;
     }
+
     const randomIndex = Math.floor(Math.random() * quotes.length);
     const randomQuote = quotes[randomIndex];
-    quoteTextElement.innerHTML = `"${randomQuote.text}"`;
 
-    // Display the source first, if it exists
+    // Create and append quote text element
+    const quoteTextElement = document.createElement('p'); // Use createElement
+    quoteTextElement.className = "quote-text"; // Apply class for styling
+    quoteTextElement.innerHTML = `"${randomQuote.text}"`; // Use innerHTML
+    quoteDisplay.appendChild(quoteTextElement); // Use appendChild
+
+    // Create and append source element (if exists)
     if (randomQuote.source) {
-        quoteSourceElement.innerHTML = `— ${randomQuote.source}`;
-    } else {
-        quoteSourceElement.innerHTML = "";
+        const quoteSourceElement = document.createElement('p'); // Use createElement
+        quoteSourceElement.className = "quote-source"; // Apply class for styling
+        quoteSourceElement.innerHTML = `— ${randomQuote.source}`; // Use innerHTML
+        quoteDisplay.appendChild(quoteSourceElement); // Use appendChild
     }
     
-    // Then display the category
-    quoteCategoryElement.innerHTML = `- ${randomQuote.category}`;
+    // Create and append category element
+    const quoteCategoryElement = document.createElement('p'); // Use createElement
+    quoteCategoryElement.className = "quote-category"; // Apply class for styling
+    quoteCategoryElement.innerHTML = `- ${randomQuote.category}`; // Use innerHTML
+    quoteDisplay.appendChild(quoteCategoryElement); // Use appendChild
 }
 
 /**
@@ -65,7 +78,7 @@ function addQuote(event) {
         newQuoteCategoryInput.value = '';
         newQuoteSourceInput.value = '';
         // Optionally show the newly added quote or a random one
-        showRandomQuote(); // Call the renamed function
+        showRandomQuote();
         alert('Quote added successfully!'); // Using alert per previous context
     } else {
         alert('Please enter both quote text and category.');
@@ -77,16 +90,16 @@ function addQuote(event) {
  * as required by the 'createAddQuoteForm' function name.
  * This includes attaching the event listener to the add quote form.
  */
-function createAddQuoteForm() { // This function name remains as per previous requirement
+function createAddQuoteForm() {
     addQuoteForm.addEventListener('submit', addQuote);
 }
 
 
 // Event Listeners
-newQuoteButton.addEventListener('click', showRandomQuote); // Updated event listener to call showRandomQuote
+newQuoteButton.addEventListener('click', showRandomQuote);
 
 // Initial setup and display when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    showRandomQuote(); // Updated to call showRandomQuote
-    createAddQuoteForm(); // Call the new function to set up the form
+    showRandomQuote();
+    createAddQuoteForm();
 });
